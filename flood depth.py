@@ -31,8 +31,6 @@ def solution(A):
     for i in range(N - 2, -1, -1):
         right_max[i] = max(right_max[i + 1], A[i])
 
-    print(left_max, right_max)
-
     max_depth = 0
     for i in range(N):
         # Water depth at position i (is calculaed by the minimum of left_max and right_max minus the current height)
@@ -44,3 +42,5 @@ def solution(A):
 
         
 print(solution([1, 3, 2, 1, 2, 1, 5, 3, 3, 4, 2]))
+print(solution([1, 3]))
+print(solution([1, 3, 8, 12, 1, 5, 11, 0, 16, 1]))
