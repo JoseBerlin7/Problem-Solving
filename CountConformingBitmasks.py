@@ -42,9 +42,31 @@ Idea:
 2. Then 2 power possible number of 0's'''
 
 def solution(A, B, C):
-    combine = A or B or C
-    set_bit = bin(combine).count('0')
-    return 2**set_bit
+    nA = nB = nC = 0
+    nAB = nAC = nBC = nABC = 0
+
+    for i in range(30):
+        if ((A>>i)&1) ==0:
+            nA +=1
+        if ((B>>i)&1) ==0:
+            nB +=1
+        if ((C>>i)&1) ==0:
+            nC +=1
+        
+        if ((nAB>>i)&1) ==0:
+            nAB +=1
+        if ((nAC>>i)&1) ==0:
+            nAC +=1
+        if ((nBC>>i)&1) ==0:
+            nBC +=1
+        
+        if((nABC)&1) == 0:
+            nABC +=1
+
+        return None
+        
+        
+        
 
 A = 1073741727  # 11 1111 1111 1111 1111 1111 1001 1111
 B = 1073741631  # 11 1111 1111 1111 1111 1111 0011 1111
