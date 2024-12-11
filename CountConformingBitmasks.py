@@ -38,32 +38,40 @@ A, B and C are integers within the range [0..1,073,741,823].
 # Solution
 '''
 Idea:
-1. Use OR operator between A, B, C to find the possible number of 0's after conforming the A,B,C 
-2. Then 2 power possible number of 0's'''
+1. count all the possbilities of 30 bit unsigned integer for A,B,C 
+2. Then minus the repetition of the possibilities (i.e., A or B, A or C, B or C)
+3. Then add the possibilities of A,B,C together (i.e., A or B or C)'''
 
 def solution(A, B, C):
-    nA = nB = nC = 0
-    nAB = nAC = nBC = nABC = 0
+    nA = 0
+    nB = 0
+    nC = 0
+    nAB = nAC = nBC = nABC = 0 
+    AoB, AoC, BoC, AoBoC = A|B, A|C, B|C, A|B|C
 
     for i in range(30):
-        if ((A>>i)&1) ==0:
-            nA +=1
-        if ((B>>i)&1) ==0:
-            nB +=1
-        if ((C>>i)&1) ==0:
-            nC +=1
+        # Finding the valid possiblities of A, B, C
+        if ((A >> i) & 0x01) == 0:
+            nA += 1
+        if ((B >> i) & 0x01) == 0:
+            nB += 1
+        if ((C >> i) & 0x01) == 0:
+            nC += 1
         
-        if ((nAB>>i)&1) ==0:
+        # Finding the valid possiblities of A or B, A or C, B or C
+        if ((AoB>>i)&0x01) ==0:
             nAB +=1
-        if ((nAC>>i)&1) ==0:
+        if ((AoC>>i)&0x01) ==0:
             nAC +=1
-        if ((nBC>>i)&1) ==0:
+        if ((BoC>>i)&0x01) ==0:
             nBC +=1
         
-        if((nABC)&1) == 0:
+        # Finding the valid possiblities of A or B or C
+        if((AoBoC)&0x01) == 0:
             nABC +=1
-
-        return None
+    
+    # calculating the actual possibilities  
+    return ((1<<nA) + (1<<nB) + (1<<nC) - (1<<nAB) - (1<<nAC) - (1<<nBC) + (1<<nABC))
         
         
         
